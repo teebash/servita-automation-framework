@@ -3,6 +3,7 @@ dist/
 reports/
 *.js
 !jest.config.ts
+!.eslintrc.js
 .env
 .env.*
 !.env.example

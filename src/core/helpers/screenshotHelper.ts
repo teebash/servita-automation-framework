@@ -20,12 +20,7 @@ function sanitiseFilename(name: string): string {
  */
 export async function captureScreenshotOnFailure(page: Page): Promise<void> {
   const state = expect.getState();
-  const testFailed = state.currentTestName && state.numPassingAsserts !== undefined;
 
-  // Jest doesn't expose a direct "did this test fail" flag in afterEach.
-  // We use a try/catch wrapper approach — but the simplest reliable method is
-  // to check jasmine's currentSpec or just always capture and let the caller decide.
-  // Instead, we expose this as a utility and the test files call it conditionally.
   if (!page || page.isClosed()) return;
 
   const suiteName = sanitiseFilename(state.currentTestName?.split(' > ')[0] ?? 'unknown-suite');

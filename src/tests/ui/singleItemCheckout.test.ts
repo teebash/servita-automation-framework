@@ -1,7 +1,6 @@
 import { Page } from 'playwright';
 import { launchBrowser, closeBrowser, BrowserSession, captureScreenshotOnFailure } from '../../core/helpers';
 import { AuthFlow, CheckoutFlow } from '../../ui/flows';
-import { ProductsPage, CartPage, CheckoutPage, CheckoutOverviewPage, CheckoutCompletePage } from '../../ui/pages';
 import {
   assertOnProductsPage,
   assertCartContainsItems,
@@ -33,7 +32,7 @@ describe('Single Item Checkout', () => {
   });
 
   afterEach(async () => {
-    if ((global as any).__TEST_FAILED__) {
+    if ((global as Record<string, unknown>).__TEST_FAILED__) {
       await captureScreenshotOnFailure(session.page);
     }
     await closeBrowser(session);
