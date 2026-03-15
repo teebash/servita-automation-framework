@@ -1,0 +1,13 @@
+node_modules/
+dist/
+reports/
+*.js
+!jest.config.ts
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# IDE / Copilot
+copilot-instructions.md
+.vscode/
