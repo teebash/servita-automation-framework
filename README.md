@@ -55,7 +55,7 @@ src/
 ## Installation
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/teebash/servita-automation-framework.git
 cd servita-automation-framework
 npm install
 npx playwright install --with-deps chromium
