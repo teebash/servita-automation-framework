@@ -32,7 +32,7 @@ const config: Config = {
       testEnvironment: 'node',
       testMatch: ['<rootDir>/src/tests/api/**/*.test.ts'],
       setupFiles: ['<rootDir>/src/config/envLoader.ts'],
-      transform: { '^.+\.(ts|js)$': ['ts-jest', { tsconfig: 'tsconfig.json' }] },
+      transform: { '^.+\\.(ts|js)$': ['ts-jest', { tsconfig: 'tsconfig.json' }] },
       transformIgnorePatterns: ['node_modules/(?!@faker-js)'],
       moduleNameMapper: {
         '^@config/(.*)$': '<rootDir>/src/config/$1',
@@ -46,7 +46,7 @@ const config: Config = {
       testEnvironment: '<rootDir>/src/config/screenshotEnvironment.ts',
       testMatch: ['<rootDir>/src/tests/ui/**/*.test.ts'],
       setupFiles: ['<rootDir>/src/config/envLoader.ts'],
-      transform: { '^.+\.(ts|js)$': ['ts-jest', { tsconfig: 'tsconfig.json' }] },
+      transform: { '^.+\\.(ts|js)$': ['ts-jest', { tsconfig: 'tsconfig.json' }] },
       transformIgnorePatterns: ['node_modules/(?!@faker-js)'],
       moduleNameMapper: {
         '^@config/(.*)$': '<rootDir>/src/config/$1',

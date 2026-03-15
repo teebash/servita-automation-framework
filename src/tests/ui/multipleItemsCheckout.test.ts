@@ -36,7 +36,7 @@ describe('Multiple Items Checkout', () => {
   });
 
   afterEach(async () => {
-    if ((global as any).__TEST_FAILED__) {
+    if ((global as Record<string, unknown>).__TEST_FAILED__) {
       await captureScreenshotOnFailure(session.page);
     }
     await closeBrowser(session);
