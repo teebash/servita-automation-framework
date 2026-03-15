@@ -213,17 +213,25 @@ API_BASE_URL=https://dev-api.reqres.in
 
 All `.env.*` files are git-ignored. Example files (`.env.*.example`) are committed as templates.
 
-### CI/CD multi-environment pipeline
+### CI/CD pipeline strategy
 
-The GitHub Actions workflow uses a matrix strategy to run tests across all environments in parallel:
+The GitHub Actions workflow implements a realistic test strategy that mirrors how tests run in a real delivery pipeline:
 
-```yaml
-strategy:
-  matrix:
-    environment: [local, dev, uat, preprod]
-```
+| Trigger | Environment | Test Scope | Purpose |
+|---------|-------------|------------|---------|
+| PR opened/updated | local | Smoke only | Fast feedback for reviewers (~30s) |
+| Merge to master | local | Full regression | Gate before deployment |
+| Deploy to dev | dev | Full regression | Post-deployment verification |
+| Deploy to UAT | uat | Full regression | Pre-release validation |
+| Deploy to preprod | preprod | Full regression | Final sign-off |
 
-Each environment gets its own job run, its own test report artifact, and reads environment-specific config from the corresponding `.env.<env>` file. In a real project, each environment would have its own set of secrets and URLs configured in the repository settings or an external secret store.
+**What runs automatically in this repo:**
+- **Pull requests** → lint + typecheck + smoke tests (API + UI) against local
+- **Push to master** → lint + typecheck + full regression against local
+
+**Post-deployment runs (dev/uat/preprod):** In a real pipeline, these would be triggered after a successful deployment to each environment — typically via `workflow_dispatch` or `workflow_run`. The CI workflow includes a commented-out `workflow_dispatch` example showing how this would work. The npm scripts (`test:api:dev`, `test:ui:uat`, etc.) are ready for this.
+
+Each job run uploads its own test report artifact for traceability.
 
 ---
 
