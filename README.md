@@ -6,14 +6,17 @@ A TypeScript + Jest automation framework for UI and API testing, built for the S
 
 ## Tech Stack
 
-| Layer      | Tool              | Purpose                                           |
-| ---------- | ----------------- | ------------------------------------------------- |
-| Language   | TypeScript        | Strict typing across the entire framework          |
-| Test Runner| Jest              | Test execution, assertions, and reporting          |
-| UI Driver  | Playwright        | Browser automation for external site testing       |
-| HTTP Client| Native `fetch`    | API request execution                              |
-| Reporting  | jest-junit, jest-html-reporters | JUnit XML + HTML reports          |
-| CI         | GitHub Actions    | Automated pipeline on push/PR                     |
+| Layer       | Tool                              | Purpose                                           |
+| ----------- | --------------------------------- | ------------------------------------------------- |
+| Language    | TypeScript                        | Strict typing across the entire framework          |
+| Test Runner | Jest                              | Test execution, assertions, and reporting          |
+| BDD         | jest-cucumber                     | Gherkin feature files with Given/When/Then steps   |
+| UI Driver   | Playwright                        | Browser automation for external site testing       |
+| HTTP Client | Native `fetch`                    | API request execution                              |
+| Test Data   | @faker-js/faker                   | Dynamic, realistic test data generation            |
+| Validation  | Zod                               | Runtime API response schema validation             |
+| Reporting   | jest-junit, jest-html-reporters   | JUnit XML + HTML reports                           |
+| CI          | GitHub Actions                    | Automated pipeline on push/PR                      |
 
 ---
 
@@ -24,6 +27,7 @@ src/
   config/           # Environment and runtime configuration
                     #   envLoader.ts — multi-env .env file loading
                     #   screenshotEnvironment.ts — custom Jest env for failure tracking
+                    #   cucumberSetup.ts — jest-cucumber tag-aware configuration
   core/
     constants/      # App constants, URLs, user credentials
     types/          # Shared TypeScript interfaces
@@ -39,8 +43,12 @@ src/
     builders/       # Request payload builders/factories
     assertions/     # API response assertion helpers
   tests/
-    ui/             # UI test specifications
-    api/            # API test specifications
+    ui/
+      features/     # Gherkin .feature files (BDD scenarios)
+      *.steps.ts    # Step definitions bound to feature files
+    api/
+      features/     # Gherkin .feature files (BDD scenarios)
+      *.steps.ts    # Step definitions bound to feature files
 ```
 
 ---
@@ -329,9 +337,7 @@ All environment-specific values flow through a typed configuration layer, making
 
 ## Future Improvements
 
-- Test tagging and filtering for selective execution
 - Parallel test execution across browsers
-- API contract/schema validation (e.g. with Zod or Ajv)
 - Visual regression testing
 - Accessibility checks
 - Service mocking for isolated component tests
