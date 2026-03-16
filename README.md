@@ -259,8 +259,8 @@ UI tests automatically capture a full-page screenshot when a test fails. Screens
 
 ```
 reports/screenshots/
-  Login_and_Logout--should_show_error_for_locked_out_user--2026-03-15T10-30-45-123Z.png
-  Single_Item_Checkout--should_complete_checkout--2026-03-15T10-31-02-456Z.png
+  Login_and_Logout--_regression_Locked_out_user_sees_an_error_message--2026-03-16T08-49-14-649Z.png
+  Single_Item_Checkout--_smoke__regression_Complete_checkout_with_a_single_item--2026-03-16T08-49-20-655Z.png
 ```
 
 This is powered by a [custom Jest environment](src/config/screenshotEnvironment.ts) that tracks which test has failed, so the `afterEach` hook only captures when needed — no wasted screenshots on passing tests.
