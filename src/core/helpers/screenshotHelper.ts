@@ -23,10 +23,29 @@ export async function captureScreenshotOnFailure(page: Page): Promise<void> {
 
   if (!page || page.isClosed()) return;
 
-  const suiteName = sanitiseFilename(state.currentTestName?.split(' > ')[0] ?? 'unknown-suite');
-  const testName = sanitiseFilename(state.currentTestName ?? 'unknown-test');
+  const fullName = state.currentTestName ?? 'unknown-test';
+  const parts = fullName.split(' > ');
+  let suiteName: string;
+  let testName: string;
+
+  if (parts.length > 1) {
+    // Standard Jest describe > it format
+    suiteName = parts[0];
+    testName = parts.slice(1).join('_');
+  } else {
+    // jest-cucumber flat format: "Feature name @tag Scenario title"
+    const tagIndex = fullName.indexOf('@');
+    if (tagIndex > 0) {
+      suiteName = fullName.substring(0, tagIndex).trim();
+      testName = fullName.substring(tagIndex).trim();
+    } else {
+      suiteName = fullName;
+      testName = 'failed';
+    }
+  }
+
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const filename = `${suiteName}--${testName}--${timestamp}.png`;
+  const filename = `${sanitiseFilename(suiteName)}--${sanitiseFilename(testName)}--${timestamp}.png`;
 
   ensureScreenshotsDir();
   await page.screenshot({ path: path.join(SCREENSHOTS_DIR, filename), fullPage: true });
