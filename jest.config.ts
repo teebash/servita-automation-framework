@@ -30,8 +30,8 @@ const config: Config = {
       displayName: 'api',
       preset: 'ts-jest',
       testEnvironment: 'node',
-      testMatch: ['<rootDir>/src/tests/api/**/*.test.ts'],
-      setupFiles: ['<rootDir>/src/config/envLoader.ts'],
+      testMatch: ['<rootDir>/src/tests/api/**/*.steps.ts'],
+      setupFiles: ['<rootDir>/src/config/envLoader.ts', '<rootDir>/src/config/cucumberSetup.ts'],
       transform: { '^.+\\.(ts|js)$': ['ts-jest', { tsconfig: 'tsconfig.json' }] },
       transformIgnorePatterns: ['node_modules/(?!@faker-js)'],
       moduleNameMapper: {
@@ -44,8 +44,8 @@ const config: Config = {
       displayName: 'ui',
       preset: 'ts-jest',
       testEnvironment: '<rootDir>/src/config/screenshotEnvironment.ts',
-      testMatch: ['<rootDir>/src/tests/ui/**/*.test.ts'],
-      setupFiles: ['<rootDir>/src/config/envLoader.ts'],
+      testMatch: ['<rootDir>/src/tests/ui/**/*.steps.ts'],
+      setupFiles: ['<rootDir>/src/config/envLoader.ts', '<rootDir>/src/config/cucumberSetup.ts'],
       transform: { '^.+\\.(ts|js)$': ['ts-jest', { tsconfig: 'tsconfig.json' }] },
       transformIgnorePatterns: ['node_modules/(?!@faker-js)'],
       moduleNameMapper: {
